@@ -1,4 +1,12 @@
 package br.com.delove.repository;
 
-public class UsuarioRepository {
+import br.com.delove.model.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+    List<Usuario> findAllByCidadeContainingIgnoreCase (String cidade);
 }
