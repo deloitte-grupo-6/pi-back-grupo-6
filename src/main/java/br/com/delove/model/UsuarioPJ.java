@@ -1,5 +1,10 @@
 package br.com.delove.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("PJ")
 public class UsuarioPJ extends Usuario{
 
     private String cnpj;

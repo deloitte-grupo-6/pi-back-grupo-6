@@ -1,15 +1,44 @@
 package br.com.delove.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Usuario {
+@Entity
+@Inheritance
+@DiscriminatorColumn(name="tipo", discriminatorType = DiscriminatorType.STRING, length = 2)
+public abstract class Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Size(min=2, max=100)
     private String nome;
+
+    @NotNull
+    @Email
+    @Size(min=6, max=50)
     private String email;
+
+    @NotNull
+    @Size(min=6, max=20)
     private String senha;
+
+    @NotNull
+    @Size(min=12, max=14)
     private String contato;
+
+    @NotNull
+    @Size(min=2, max=50)
     private String cidade;
+
+
     private List<Pet> petsDoados;
 
     public Usuario() {
