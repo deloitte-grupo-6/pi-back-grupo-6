@@ -38,8 +38,14 @@ public abstract class Usuario implements Serializable {
     @Size(min=2, max=50)
     private String cidade;
 
-
+    @OneToMany(mappedBy = "tutor")
     private List<Pet> petsDoados;
+
+    @ManyToMany
+    @JoinTable(name = "filaInteressados",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "pet_id"))
+    private List<Pet> petsInteressados;
 
     public Usuario() {
     }
@@ -106,5 +112,13 @@ public abstract class Usuario implements Serializable {
 
     public void setPetsDoados(List<Pet> petsDoados) {
         this.petsDoados = petsDoados;
+    }
+
+    public List<Pet> getPetsInteressados() {
+        return petsInteressados;
+    }
+
+    public void setPetsInteressados(List<Pet> petsInteressados) {
+        this.petsInteressados = petsInteressados;
     }
 }
