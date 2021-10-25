@@ -2,6 +2,7 @@ package br.com.delove.controller;
 
 import br.com.delove.model.Usuario;
 import br.com.delove.model.UsuarioPF;
+import br.com.delove.model.UsuarioPJ;
 import br.com.delove.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,15 @@ public class UsuarioController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/cadastrarpf")
     public ResponseEntity<UsuarioPF> cadastrarUsuarioPF(@RequestBody UsuarioPF usuarioPF){
         UsuarioPF novoUsuarioPF = usuarioService.adicionarUsuarioPF(usuarioPF);
         return new ResponseEntity<>(novoUsuarioPF, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/cadastrarpj")
+    public ResponseEntity<UsuarioPJ> cadastrarUsuarioPJ(@RequestBody UsuarioPJ usuarioPJ){
+        UsuarioPJ novoUsuarioPJ = usuarioService.adicionarUsuarioPJ(usuarioPJ);
+        return new ResponseEntity<>(novoUsuarioPJ, HttpStatus.CREATED);
     }
 }
