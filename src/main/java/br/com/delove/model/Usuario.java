@@ -1,16 +1,51 @@
 package br.com.delove.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Usuario {
+@Entity
+@Inheritance
+@DiscriminatorColumn(name="tipo", discriminatorType = DiscriminatorType.STRING, length = 2)
+public abstract class Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Size(min=2, max=100)
     private String nome;
+
+    @NotNull
+    @Email
+    @Size(min=6, max=50)
     private String email;
+
+    @NotNull
+    @Size(min=6, max=20)
     private String senha;
+
+    @NotNull
+    @Size(min=12, max=14)
     private String contato;
+
+    @NotNull
+    @Size(min=2, max=50)
     private String cidade;
+
+    @OneToMany(mappedBy = "tutor")
     private List<Pet> petsDoados;
+
+    @ManyToMany
+    @JoinTable(name = "filaInteressados",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "pet_id"))
+    private List<Pet> petsInteressados;
 
     public Usuario() {
     }
@@ -77,5 +112,13 @@ public abstract class Usuario {
 
     public void setPetsDoados(List<Pet> petsDoados) {
         this.petsDoados = petsDoados;
+    }
+
+    public List<Pet> getPetsInteressados() {
+        return petsInteressados;
+    }
+
+    public void setPetsInteressados(List<Pet> petsInteressados) {
+        this.petsInteressados = petsInteressados;
     }
 }

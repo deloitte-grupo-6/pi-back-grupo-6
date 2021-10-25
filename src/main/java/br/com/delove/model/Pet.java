@@ -1,19 +1,50 @@
 package br.com.delove.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Pet {
+@Entity
+public class Pet implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Size(max = 50)
     private String nome;
+
+    @NotNull
+    @ManyToOne
     private Usuario tutor;
+
+    @NotNull
     private boolean disponivel;
+
+    @NotNull
+    @Size(min=3, max=20)
     private String especie;
+
+    @NotNull
+    @Size(min=3, max=20)
     private String raca;
+
+    @NotNull
+    @Size(min=4, max=7)
     private String sexo;
+
+    @NotNull
     private LocalDate dataNascimento;
+
+    @Size(max=500)
     private String descricao;
+
+    @ManyToMany(mappedBy = "petsInteressados")
     private List<Usuario> filaInteressados;
 
     public Pet(String nome, Usuario tutor, boolean disponivel, String especie, String raca, String sexo, LocalDate dataNascimento, String descricao) {
