@@ -14,6 +14,10 @@ public class UsuarioPJ extends Usuario{
         this.cnpj = cnpj;
     }
 
+    public UsuarioPJ() {
+        super();
+    }
+
     public String getCnpj() {
         return cnpj;
     }

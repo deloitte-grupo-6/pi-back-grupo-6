@@ -14,7 +14,9 @@ public class UsuarioPF extends Usuario{
         this.cpf = cpf;
     }
 
-
+    public UsuarioPF() {
+        super();
+    }
 
     public String getCpf() {
         return cpf;
