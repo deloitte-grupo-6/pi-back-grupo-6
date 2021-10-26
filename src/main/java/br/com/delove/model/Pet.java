@@ -1,5 +1,6 @@
 package br.com.delove.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -51,6 +52,7 @@ public class Pet implements Serializable {
     private String descricao;
 
     @ManyToMany(mappedBy = "petsInteressados")
+    @JsonIgnoreProperties("petsInteressados")
     private List<Usuario> listaInteressados;
 
 
