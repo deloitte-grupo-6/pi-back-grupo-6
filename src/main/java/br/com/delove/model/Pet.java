@@ -58,6 +58,8 @@ public class Pet implements Serializable {
         this.descricao = descricao;
     }
 
+    public Pet(){}
+
     public String getNome() {
         return nome;
     }

@@ -8,9 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Inheritance
-@DiscriminatorColumn(name="tipo", discriminatorType = DiscriminatorType.STRING, length = 2)
-public abstract class Usuario implements Serializable {
+public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -35,6 +33,10 @@ public abstract class Usuario implements Serializable {
     private String contato;
 
     @NotNull
+    @Size(min=10, max=14)
+    private String documento;
+
+    @NotNull
     @Size(min=2, max=50)
     private String cidade;
 
@@ -50,13 +52,15 @@ public abstract class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha, String contato, String cidade) {
+    public Usuario(String nome, String email, String senha, String contato, String cidade, String documento) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.contato = contato;
         this.cidade = cidade;
+        this.documento = documento;
     }
+
 
     public Long getId() {
         return id;
@@ -104,6 +108,14 @@ public abstract class Usuario implements Serializable {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     public List<Pet> getPetsDoados() {
