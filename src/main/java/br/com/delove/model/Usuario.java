@@ -1,5 +1,7 @@
 package br.com.delove.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -33,18 +35,20 @@ public class Usuario implements Serializable {
     private String contato;
 
     @NotNull
-    @Size(min=10, max=14)
+    @Size(min=11, max=14)
     private String documento;
 
     @NotNull
     @Size(min=2, max=50)
     private String cidade;
 
-    @OneToMany(mappedBy = "tutor")
-    private List<Pet> petsDoados;
+
+    @OneToMany(mappedBy = "doador")
+    @JsonIgnoreProperties("doador")
+    private List<Pet> petsEmDoacao;
 
     @ManyToMany
-    @JoinTable(name = "filaInteressados",
+    @JoinTable(name = "listaInteressados",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "pet_id"))
     private List<Pet> petsInteressados;
@@ -118,13 +122,6 @@ public class Usuario implements Serializable {
         this.documento = documento;
     }
 
-    public List<Pet> getPetsDoados() {
-        return petsDoados;
-    }
-
-    public void setPetsDoados(List<Pet> petsDoados) {
-        this.petsDoados = petsDoados;
-    }
 
     public List<Pet> getPetsInteressados() {
         return petsInteressados;
@@ -132,5 +129,13 @@ public class Usuario implements Serializable {
 
     public void setPetsInteressados(List<Pet> petsInteressados) {
         this.petsInteressados = petsInteressados;
+    }
+
+    public List<Pet> getPetsEmDoacao() {
+        return petsEmDoacao;
+    }
+
+    public void setPetsEmDoacao(List<Pet> petsEmDoacao) {
+        this.petsEmDoacao = petsEmDoacao;
     }
 }

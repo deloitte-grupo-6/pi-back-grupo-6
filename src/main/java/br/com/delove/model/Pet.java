@@ -1,5 +1,7 @@
 package br.com.delove.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,7 +23,8 @@ public class Pet implements Serializable {
 
     @NotNull
     @ManyToOne
-    private Usuario tutor;
+    @JsonIgnoreProperties("petsEmDoacao")
+    private Usuario doador;
 
     @NotNull
     private boolean disponivel;
@@ -41,16 +44,19 @@ public class Pet implements Serializable {
     @NotNull
     private LocalDate dataNascimento;
 
+//    @NotNull
+//    private String imagemUrl;
+
     @Size(max=500)
     private String descricao;
 
     @ManyToMany(mappedBy = "petsInteressados")
-    private List<Usuario> filaInteressados;
+    private List<Usuario> listaInteressados;
 
-    public Pet(String nome, Usuario tutor, boolean disponivel, String especie, String raca, String sexo, LocalDate dataNascimento, String descricao) {
+
+    public Pet(String nome, Usuario doador, String especie, String raca, String sexo, LocalDate dataNascimento, String descricao) {
         this.nome = nome;
-        this.tutor = tutor;
-        this.disponivel = disponivel;
+        this.doador = doador;
         this.especie = especie;
         this.raca = raca;
         this.sexo = sexo;
@@ -68,12 +74,12 @@ public class Pet implements Serializable {
         this.nome = nome;
     }
 
-    public Usuario getTutor() {
-        return tutor;
+    public Usuario getDoador() {
+        return doador;
     }
 
-    public void setTutor(Usuario tutor) {
-        this.tutor = tutor;
+    public void setDoador(Usuario doador) {
+        this.doador = doador;
     }
 
     public boolean isDisponivel() {
@@ -125,10 +131,10 @@ public class Pet implements Serializable {
     }
 
     public List<Usuario> getFilaInteressados() {
-        return filaInteressados;
+        return listaInteressados;
     }
 
     public void setFilaInteressados(List<Usuario> filaInteressados) {
-        this.filaInteressados = filaInteressados;
+        this.listaInteressados = filaInteressados;
     }
 }

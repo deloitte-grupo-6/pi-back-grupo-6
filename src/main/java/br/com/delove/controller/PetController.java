@@ -39,4 +39,23 @@ public class PetController {
         return new ResponseEntity<>(novoPet, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/deletar/{id}")
+
+    public ResponseEntity<?> deletarPetPorId(@PathVariable Long id) {
+        if(!petService.petExistePorId(id)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        petService.deletarPet(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+   @PutMapping("/doar/{id}")
+    public ResponseEntity<Pet> doarPet(@PathVariable Long id) {
+       if(!petService.petExistePorId(id)){
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       }
+       Pet pet = petService.findPetById(id);
+       petService.doacaoConcluida(pet);
+       return new ResponseEntity<>(pet, HttpStatus.CREATED);
+   }
 }
