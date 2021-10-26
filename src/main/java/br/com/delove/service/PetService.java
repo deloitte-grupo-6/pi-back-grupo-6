@@ -14,20 +14,25 @@ public class PetService {
     @Autowired
     private PetRepository petRepository;
 
+
+    public List<Pet> findPetByDisponibilidade(Boolean disponivel){
+        return petRepository.findAllByDisponivel(disponivel);
+    }
+
     public Pet findPetById(Long id){
         return petRepository.findById(id).orElseThrow(()->new RuntimeException());
     }
 
-    public List<Pet> findPetBySpecie(String especie) {
-        return petRepository.findAllByEspecieContainingIgnoreCase(especie);
+    public List<Pet> listarPetsPorEspecieEDisponibilidade(String especie, boolean disponivel){
+        return petRepository.findAllByEspecieAndDisponivel(especie, disponivel);
     }
 
-    public List<Pet> findPetBySexo (String sexo) {
-        return petRepository.findAllBySexoContainingIgnoreCase(sexo);
+    public List<Pet> listarPetsPorSexoEDisponibilidade (String sexo, boolean disponivel) {
+        return petRepository.findAllBySexoAndDisponivel(sexo, disponivel);
     }
 
-    public List<Pet> findPetByRaca(String raca){
-        return petRepository.findAllByRacaContainingIgnoreCase(raca);
+    public List<Pet> listarPetsPorRacaEDisponibilidade(String raca, boolean disponivel){
+        return petRepository.findAllByRacaAndDisponivel(raca, disponivel);
     }
 
     public Pet inserirPet(Pet pet){
@@ -44,5 +49,9 @@ public class PetService {
 
     public boolean petExistePorId(Long petId) {
         return petRepository.existsById(petId);
+    }
+
+    public Pet atualizarPet(Pet pet){
+        return petRepository.save(pet);
     }
 }

@@ -9,11 +9,15 @@ import java.util.List;
 @Repository
 public interface PetRepository extends JpaRepository<Pet,Long> {
 
-    List<Pet> findAllByEspecieContainingIgnoreCase(String especie);
+    List<Pet> findAllByEspecieAndDisponivel(String especie, boolean disponivel);
 
-    List<Pet> findAllBySexoContainingIgnoreCase(String sexo);
+    List<Pet> findAllBySexoAndDisponivel(String sexo, boolean disponivel);
 
-    List<Pet> findAllByRacaContainingIgnoreCase(String raca);
+    List<Pet> findAllByRacaAndDisponivel(String raca, boolean disponivel);
+
+    List<Pet> findAllByDisponivel(Boolean disponivel);
+
+
 }
 
 
