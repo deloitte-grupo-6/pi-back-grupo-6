@@ -68,6 +68,22 @@ public class Pet implements Serializable {
 
     public Pet(){}
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Usuario> getListaInteressados() {
+        return listaInteressados;
+    }
+
+    public void setListaInteressados(List<Usuario> listaInteressados) {
+        this.listaInteressados = listaInteressados;
+    }
+
     public String getNome() {
         return nome;
     }

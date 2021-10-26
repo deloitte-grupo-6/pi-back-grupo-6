@@ -4,6 +4,8 @@ import br.com.delove.model.Pet;
 import br.com.delove.model.Usuario;
 import br.com.delove.service.PetService;
 import br.com.delove.service.UsuarioService;
+import br.com.delove.summary.PetAssembler;
+import br.com.delove.summary.PetSummaryModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,47 +22,40 @@ public class PetController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private PetAssembler petAssembler;
 
     @GetMapping
-    public ResponseEntity<List<Pet>> listarPetsPorDisponibilidade(){
+    public ResponseEntity<List<PetSummaryModel>> listarPetsPorDisponibilidade(){
         List<Pet> listaPorDisponivel = petService.findPetByDisponibilidade(true);
-        return new ResponseEntity<>(listaPorDisponivel, HttpStatus.OK);
+        return new ResponseEntity<>(petAssembler.toCollectionModel(listaPorDisponivel), HttpStatus.OK);
     }
 
-//    @GetMapping("/especie/{especie}")
-//    public ResponseEntity<List<Pet>> listarPetsPorEspecie(@PathVariable String especie) {
-//        List<Pet> listaPorDisponivel = petService.findPetByDisponibilidade(true);
-//        List<Pet> listaPorEspecie = petService.findPetBySpecie(especie);
-//        return new ResponseEntity<>(listaPorEspecie, HttpStatus.OK);
-//    }
-
-
     @GetMapping("/especie/{especie}/{disponivel}")
-    public ResponseEntity<List<Pet>> listarPetsPorEspecieEDisponibilidade(@PathVariable String especie, @PathVariable boolean disponivel) {
+    public ResponseEntity<List<PetSummaryModel>> listarPetsPorEspecieEDisponibilidade(@PathVariable String especie, @PathVariable boolean disponivel) {
         List<Pet> listaPorEspecie = petService.listarPetsPorEspecieEDisponibilidade(especie, disponivel);
-        return new ResponseEntity<>(listaPorEspecie, HttpStatus.OK);
+        return new ResponseEntity<>(petAssembler.toCollectionModel(listaPorEspecie), HttpStatus.OK);
     }
 
     @GetMapping("/sexo/{sexo}/{disponivel}")
-    public ResponseEntity<List<Pet>> listarPetsPorSexoEDisponibilidade(@PathVariable String sexo, @PathVariable boolean disponivel) {
+    public ResponseEntity<List<PetSummaryModel>> listarPetsPorSexoEDisponibilidade(@PathVariable String sexo, @PathVariable boolean disponivel) {
         List<Pet> listaPorSexo = petService.listarPetsPorSexoEDisponibilidade(sexo, disponivel);
-        return new ResponseEntity<>(listaPorSexo, HttpStatus.OK);
+        return new ResponseEntity<>(petAssembler.toCollectionModel(listaPorSexo), HttpStatus.OK);
     }
 
     @GetMapping("/raca/{raca}/{disponivel}")
-    public ResponseEntity<List<Pet>> listarPetsPorRacaEDisponibilidade(@PathVariable String raca, @PathVariable boolean disponivel) {
+    public ResponseEntity<List<PetSummaryModel>> listarPetsPorRacaEDisponibilidade(@PathVariable String raca, @PathVariable boolean disponivel) {
         List<Pet> listaPorRaca = petService.listarPetsPorRacaEDisponibilidade(raca, disponivel);
-        return new ResponseEntity<>(listaPorRaca, HttpStatus.OK);
+        return new ResponseEntity<>(petAssembler.toCollectionModel(listaPorRaca), HttpStatus.OK);
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Pet> cadastrarPet(@RequestBody Pet pet){
+    public ResponseEntity<PetSummaryModel> cadastrarPet(@RequestBody Pet pet){
         Pet novoPet = petService.inserirPet(pet);
-        return new ResponseEntity<>(novoPet, HttpStatus.CREATED);
+        return new ResponseEntity<>(petAssembler.toModel(novoPet), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/deletar/{id}")
-
     public ResponseEntity<?> deletarPetPorId(@PathVariable Long id) {
         if(!petService.petExistePorId(id)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -70,22 +65,22 @@ public class PetController {
     }
 
    @PutMapping("/doar/{id}")
-    public ResponseEntity<Pet> doarPet(@PathVariable Long id) {
+    public ResponseEntity<PetSummaryModel> doarPet(@PathVariable Long id) {
        if(!petService.petExistePorId(id)){
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }
        Pet pet = petService.findPetById(id);
        petService.doacaoConcluida(pet);
-       return new ResponseEntity<>(pet, HttpStatus.CREATED);
+       return new ResponseEntity<>(petAssembler.toModel(pet), HttpStatus.CREATED);
    }
 
    @PutMapping("/{petId}/interessado/{usuarioId}")
-    public ResponseEntity<Pet> adicionarUsuarioNaLista(@PathVariable Long usuarioId, @PathVariable Long petId){
+    public ResponseEntity<PetSummaryModel> adicionarUsuarioNaLista(@PathVariable Long usuarioId, @PathVariable Long petId){
         Pet pet = petService.findPetById(petId);
         Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         pet.getFilaInteressados().add(usuario);
         usuario.getPetsInteressados().add(pet);
         petService.atualizarPet(pet);
-        return new ResponseEntity<>(pet, HttpStatus.CREATED);
+        return new ResponseEntity<>(petAssembler.toModel(pet), HttpStatus.CREATED);
    }
 }
