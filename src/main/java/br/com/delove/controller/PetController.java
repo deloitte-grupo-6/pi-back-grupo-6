@@ -41,7 +41,7 @@ public class PetController {
 
     @DeleteMapping("/deletar/{id}")
 
-    public ResponseEntity<?> deletarPetPorId(@PathVariable Long id) {
+    public ResponseEntity<?> deletarPetById(@PathVariable Long id) {
         if(!petService.petExistePorId(id)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
