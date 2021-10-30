@@ -30,17 +30,26 @@ public class Pet implements Serializable {
     @NotNull
     private boolean disponivel;
 
+//    @NotNull
+//    @Size(min=3, max=20)
+//    private String especie;
+
     @NotNull
-    @Size(min=3, max=20)
-    private String especie;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('CACHORRO', 'GATO', 'OUTRO')")
+    private Especie especie;
 
     @NotNull
     @Size(min=3, max=20)
     private String raca;
 
+//    @NotNull
+//    @Size(min=4, max=7)
+//    private String sexo;
+
     @NotNull
-    @Size(min=4, max=7)
-    private String sexo;
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
 
     @NotNull
     private LocalDate dataNascimento;
@@ -56,7 +65,7 @@ public class Pet implements Serializable {
     private List<Usuario> listaInteressados;
 
 
-    public Pet(String nome, Usuario doador, String especie, String raca, String sexo, LocalDate dataNascimento, String descricao) {
+    public Pet(String nome, Usuario doador, Especie especie, String raca, Sexo sexo, LocalDate dataNascimento, String descricao) {
         this.nome = nome;
         this.doador = doador;
         this.especie = especie;
@@ -108,11 +117,11 @@ public class Pet implements Serializable {
         this.disponivel = disponivel;
     }
 
-    public String getEspecie() {
+    public Especie getEspecie() {
         return especie;
     }
 
-    public void setEspecie(String especie) {
+    public void setEspecie(Especie especie) {
         this.especie = especie;
     }
 
@@ -124,11 +133,11 @@ public class Pet implements Serializable {
         this.raca = raca;
     }
 
-    public String getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
 

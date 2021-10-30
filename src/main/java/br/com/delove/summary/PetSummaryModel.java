@@ -1,5 +1,7 @@
 package br.com.delove.summary;
 
+import br.com.delove.model.Especie;
+import br.com.delove.model.Sexo;
 import br.com.delove.model.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -13,9 +15,9 @@ public class PetSummaryModel {
     private Long id;
     private String nome;
     private UsuarioSummaryModel doador;
-    private String especie;
+    private Especie especie;
     private String raca;
-    private String sexo;
+    private Sexo sexo;
     private LocalDate dataNascimento;
     private String descricao;
 
@@ -44,11 +46,11 @@ public class PetSummaryModel {
         this.doador = doador;
     }
 
-    public String getEspecie() {
+    public Especie getEspecie() {
         return especie;
     }
 
-    public void setEspecie(String especie) {
+    public void setEspecie(Especie especie) {
         this.especie = especie;
     }
 
@@ -60,11 +62,11 @@ public class PetSummaryModel {
         this.raca = raca;
     }
 
-    public String getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
 
