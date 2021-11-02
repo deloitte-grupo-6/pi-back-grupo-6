@@ -31,32 +31,31 @@ public class Pet implements Serializable {
     private boolean disponivel;
 
     @NotNull
-    @Size(min=3, max=20)
+    @Size(min = 3, max = 20)
     private String especie;
 
     @NotNull
-    @Size(min=3, max=20)
+    @Size(min = 3, max = 20)
     private String raca;
 
     @NotNull
-    @Size(min=4, max=7)
+    @Size(min = 4, max = 7)
     private String sexo;
 
     @NotNull
     private LocalDate dataNascimento;
 
-//    @NotNull
-//    private String imagemUrl;
+    private String imagemUrl;
 
-    @Size(max=500)
+    @Size(max = 500)
     private String descricao;
 
     @ManyToMany(mappedBy = "petsInteressados")
     @JsonIgnoreProperties("petsInteressados")
     private List<Usuario> listaInteressados;
 
-
-    public Pet(String nome, Usuario doador, String especie, String raca, String sexo, LocalDate dataNascimento, String descricao) {
+    public Pet(String nome, Usuario doador, String especie, String raca, String sexo, LocalDate dataNascimento,
+            String descricao) {
         this.nome = nome;
         this.doador = doador;
         this.especie = especie;
@@ -66,7 +65,8 @@ public class Pet implements Serializable {
         this.descricao = descricao;
     }
 
-    public Pet(){}
+    public Pet() {
+    }
 
     public Long getId() {
         return id;
