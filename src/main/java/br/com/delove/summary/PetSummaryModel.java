@@ -18,7 +18,7 @@ public class PetSummaryModel {
     private String sexo;
     private LocalDate dataNascimento;
     private String descricao;
-
+    private String imagemUrl;
 
     public Long getId() {
         return id;
@@ -82,5 +82,13 @@ public class PetSummaryModel {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
     }
 }

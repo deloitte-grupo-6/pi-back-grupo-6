@@ -2,6 +2,9 @@ package br.com.delove.controller;
 
 import br.com.delove.model.Usuario;
 import br.com.delove.service.UsuarioService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
+
+    @GetMapping("/todos")
+    public ResponseEntity<List<Usuario>> listarTodosUsuarios() {
+        return new ResponseEntity<>(usuarioService.encontrarTodosUsuarios(), HttpStatus.OK);
+    }
 
     @PostMapping("/cadastrar")
     public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
@@ -25,12 +33,10 @@ public class UsuarioController {
         return new ResponseEntity<>(novoUsuario, HttpStatus.CREATED);
     }
 
-
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<?> deletarUsuario(@PathVariable Long id){
+    public ResponseEntity<?> deletarUsuario(@PathVariable Long id) {
         usuarioService.deletarUsuario(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 }

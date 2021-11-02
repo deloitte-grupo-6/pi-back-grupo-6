@@ -55,7 +55,7 @@ public class Pet implements Serializable {
     private List<Usuario> listaInteressados;
 
     public Pet(String nome, Usuario doador, String especie, String raca, String sexo, LocalDate dataNascimento,
-            String descricao) {
+            String descricao, String imagemUrl) {
         this.nome = nome;
         this.doador = doador;
         this.especie = especie;
@@ -63,6 +63,7 @@ public class Pet implements Serializable {
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
         this.descricao = descricao;
+        this.imagemUrl = imagemUrl;
     }
 
     public Pet() {
@@ -154,5 +155,13 @@ public class Pet implements Serializable {
 
     public void setFilaInteressados(List<Usuario> filaInteressados) {
         this.listaInteressados = filaInteressados;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
     }
 }

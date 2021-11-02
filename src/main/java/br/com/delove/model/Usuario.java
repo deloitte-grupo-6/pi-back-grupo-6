@@ -19,30 +19,30 @@ public class Usuario implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min=2, max=100)
+    @Size(min = 2, max = 100)
     private String nome;
 
     @NotNull
     @Email
-    @Size(min=6, max=50)
+    @Size(min = 6, max = 50)
+    @Column(unique = true)
     private String email;
 
     @NotNull
-    @Size(min=6, max=20)
+    @Size(min = 6, max = 20)
     private String senha;
 
     @NotNull
-    @Size(min=12, max=14)
+    @Size(min = 12, max = 14)
     private String contato;
 
     @NotNull
-    @Size(min=11, max=14)
+    @Size(min = 11, max = 14)
     private String documento;
 
     @NotNull
-    @Size(min=2, max=50)
+    @Size(min = 2, max = 50)
     private String cidade;
-
 
     @OneToMany(mappedBy = "doador")
     @JsonIgnoreProperties("doador")
@@ -50,9 +50,7 @@ public class Usuario implements Serializable {
 
     @ManyToMany
     @JsonIgnoreProperties("listaInteressados")
-    @JoinTable(name = "listaInteressados",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "pet_id"))
+    @JoinTable(name = "listaInteressados", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "pet_id"))
     private List<Pet> petsInteressados;
 
     public Usuario() {
@@ -66,7 +64,6 @@ public class Usuario implements Serializable {
         this.cidade = cidade;
         this.documento = documento;
     }
-
 
     public Long getId() {
         return id;
@@ -123,7 +120,6 @@ public class Usuario implements Serializable {
     public void setDocumento(String documento) {
         this.documento = documento;
     }
-
 
     public List<Pet> getPetsInteressados() {
         return petsInteressados;
