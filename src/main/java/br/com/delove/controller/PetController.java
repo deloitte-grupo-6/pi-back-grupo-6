@@ -31,6 +31,12 @@ public class PetController {
         return new ResponseEntity<>(petAssembler.toCollectionModel(listaPorDisponivel), HttpStatus.OK);
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Pet> encontrarPorId(@PathVariable Long id) {
+        Pet pet = petService.findPetById(id);
+        return new ResponseEntity<>(pet, HttpStatus.OK);
+    }
+
     @GetMapping("/especie/{especie}/{disponivel}")
     public ResponseEntity<List<PetSummaryModel>> listarPetsPorEspecieEDisponibilidade(@PathVariable String especie, @PathVariable boolean disponivel) {
         List<Pet> listaPorEspecie = petService.listarPetsPorEspecieEDisponibilidade(especie, disponivel);
