@@ -6,12 +6,15 @@ import br.com.delove.repository.UsuarioRepository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Usuario findUsuarioById(Long id) {
         return usuarioRepository.getById(id);
@@ -26,6 +29,7 @@ public class UsuarioService {
     }
 
     public Usuario adicionarUsuario(Usuario usuario) {
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
     }
 

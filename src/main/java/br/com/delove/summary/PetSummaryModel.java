@@ -1,11 +1,5 @@
 package br.com.delove.summary;
 
-import br.com.delove.model.Usuario;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class PetSummaryModel {
