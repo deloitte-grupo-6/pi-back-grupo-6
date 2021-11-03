@@ -45,6 +45,8 @@ public class Pet implements Serializable {
     @NotNull
     private LocalDate dataNascimento;
 
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String imagemUrl;
 
     @Size(max = 500)
