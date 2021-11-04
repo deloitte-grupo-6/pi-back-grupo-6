@@ -33,9 +33,10 @@ public class PetController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<Pet> encontrarPorId(@PathVariable Long id) {
+    public ResponseEntity<PetSummaryModel> encontrarPorId(@PathVariable Long id) {
         Pet pet = petService.findPetById(id);
-        return new ResponseEntity<>(pet, HttpStatus.OK);
+        // return new ResponseEntity<>(pet, HttpStatus.OK);
+        return new ResponseEntity<>(petAssembler.toModel(pet), HttpStatus.OK);
     }
 
     @GetMapping("/especie/{especie}/{disponivel}")
