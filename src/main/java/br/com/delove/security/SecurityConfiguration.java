@@ -69,7 +69,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers("/usuarios/login").permitAll().antMatchers("/usuarios/cadastrar").permitAll()
-                .antMatchers(HttpMethod.GET, "/pets/**").permitAll().antMatchers("/**").authenticated();
+                .antMatchers("/swagger**").permitAll().antMatchers(HttpMethod.GET, "/pets/**").permitAll()
+                .antMatchers("/**").authenticated();
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
 
