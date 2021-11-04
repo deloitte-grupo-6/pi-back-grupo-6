@@ -70,7 +70,7 @@ public class UsuarioController {
 
             Usuario usuario = usuarioService.encontrarUsuarioPorEmail(login.getEmail());
             if (usuario == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Usuario());
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
             final UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
@@ -85,7 +85,7 @@ public class UsuarioController {
             e.printStackTrace();
             String mensagemErro = "Falha ao autenticar o usuário com email " + login.getEmail();
             Logger.getLogger(UsuarioController.class.getSimpleName()).log(Level.WARNING, mensagemErro);
-            return ResponseEntity.status(HttpStatus.OK).body(new Usuario());
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 

@@ -91,11 +91,11 @@ public class PetController {
         return new ResponseEntity<>(petAssembler.toModel(pet), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{petId}/interessado/{usuarioId}")
-    public ResponseEntity<PetSummaryModel> adicionarUsuarioNaLista(@PathVariable Long usuarioId,
+    @PutMapping("/{petId}/interessado/{usuarioEmail}")
+    public ResponseEntity<PetSummaryModel> adicionarUsuarioNaLista(@PathVariable String usuarioEmail,
             @PathVariable Long petId) {
         Pet pet = petService.findPetById(petId);
-        Usuario usuario = usuarioService.findUsuarioById(usuarioId);
+        Usuario usuario = usuarioService.encontrarUsuarioPorEmail(usuarioEmail);
         pet.getFilaInteressados().add(usuario);
         usuario.getPetsInteressados().add(pet);
         petService.atualizarPet(pet);
