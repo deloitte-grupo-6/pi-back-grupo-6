@@ -81,7 +81,7 @@ public class UsuarioController {
             final String token = "Bearer " + jwtTokenUtil.generateToken(userDatails);
             response.setHeader("Authorization", token);
 
-            LoginResp loginResp = new LoginResp(usuario.getEmail(), token);
+            LoginResp loginResp = new LoginResp(usuario.getId(), usuario.getEmail(), token);
 
             return new ResponseEntity<>(loginResp, HttpStatus.OK);
         } catch (Exception e) {
@@ -117,12 +117,22 @@ class LoginDto {
 }
 
 class LoginResp {
+    private Long id;
     private String email;
     private String token;
 
-    public LoginResp(String email, String token) {
+    public LoginResp(Long id, String email, String token) {
+        this.id = id;
         this.email = email;
         this.token = token;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
