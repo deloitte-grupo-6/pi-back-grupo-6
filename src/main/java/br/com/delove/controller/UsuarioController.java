@@ -1,5 +1,6 @@
 package br.com.delove.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,7 +66,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Usuario> login(@RequestBody LoginDto login, HttpServletRequest request,
+    public ResponseEntity<LoginResp> login(@RequestBody LoginDto login, HttpServletRequest request,
             HttpServletResponse response) {
         try {
 
@@ -78,9 +80,12 @@ public class UsuarioController {
             Authentication authentication = authenticationManager.authenticate(loginToken);
             final JwtUser userDatails = (JwtUser) authentication.getPrincipal();
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            final String token = jwtTokenUtil.generateToken(userDatails);
-            response.setHeader("Authorization", "Bearer " + token);
-            return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+            final String token = "Bearer " + jwtTokenUtil.generateToken(userDatails);
+            response.setHeader("Authorization", token);
+
+            LoginResp loginResp = new LoginResp(usuario.getEmail(), token);
+
+            return new ResponseEntity<>(loginResp, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             String mensagemErro = "Falha ao autenticar o usuário com email " + login.getEmail();
@@ -109,6 +114,33 @@ class LoginDto {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+}
+
+class LoginResp {
+    private String email;
+    private String token;
+
+    public LoginResp(String email, String token) {
+        this.email = email;
+        this.token = token;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }
