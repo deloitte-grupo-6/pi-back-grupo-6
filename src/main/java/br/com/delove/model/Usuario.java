@@ -16,7 +16,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Usuario implements Serializable {
@@ -37,6 +39,7 @@ public class Usuario implements Serializable {
     private String email;
 
     @NotNull
+    @JsonIgnore
     private String senha;
 
     @NotNull

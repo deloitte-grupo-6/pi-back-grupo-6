@@ -45,6 +45,12 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.encontrarTodosUsuarios(), HttpStatus.OK);
     }
 
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable Long id) {
+        Usuario usuario = usuarioService.findUsuarioById(id);
+        return new ResponseEntity<>(usuario, HttpStatus.OK);
+    }
+
     @PostMapping("/cadastrar")
     public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
         Usuario novoUsuario = usuarioService.adicionarUsuario(usuario);

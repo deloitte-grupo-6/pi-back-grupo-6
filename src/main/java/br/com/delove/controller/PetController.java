@@ -66,12 +66,11 @@ public class PetController {
         return new ResponseEntity<>(petAssembler.toModel(novoPet), HttpStatus.CREATED);
     }
 
-    // @PutMapping("/editar")
-    // public ResponseEntity<PetSummaryModel> editarPet(@RequestBody Pet pet) {
-    // Pet petAtualizado = petService.atualizarPet(pet);
-    // return new ResponseEntity<>(petAssembler.toModel(petAtualizado),
-    // HttpStatus.CREATED);
-    // }
+    @PutMapping("/editar")
+    public ResponseEntity<PetSummaryModel> editarPet(@RequestBody Pet pet) {
+        Pet petAtualizado = petService.atualizarPet(pet);
+        return new ResponseEntity<>(petAssembler.toModel(petAtualizado), HttpStatus.CREATED);
+    }
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<?> deletarPetById(@PathVariable Long id) {
@@ -97,7 +96,8 @@ public class PetController {
             @PathVariable Long petId) {
         Pet pet = petService.findPetById(petId);
         Usuario usuario = usuarioService.encontrarUsuarioPorEmail(usuarioEmail);
-        pet.getFilaInteressados().add(usuario);
+        // pet.getFilaInteressados().add(usuario);
+        pet.getListaInteressados().add(usuario);
         usuario.getPetsInteressados().add(pet);
         petService.atualizarPet(pet);
         return new ResponseEntity<>(petAssembler.toModel(pet), HttpStatus.CREATED);

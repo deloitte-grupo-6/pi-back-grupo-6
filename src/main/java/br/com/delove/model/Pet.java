@@ -158,13 +158,13 @@ public class Pet implements Serializable {
         this.descricao = descricao;
     }
 
-    public List<Usuario> getFilaInteressados() {
-        return listaInteressados;
-    }
+    // public List<Usuario> getFilaInteressados() {
+    // return listaInteressados;
+    // }
 
-    public void setFilaInteressados(List<Usuario> filaInteressados) {
-        this.listaInteressados = filaInteressados;
-    }
+    // public void setFilaInteressados(List<Usuario> filaInteressados) {
+    // this.listaInteressados = filaInteressados;
+    // }
 
     public String getImagemUrl() {
         return imagemUrl;
