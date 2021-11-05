@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
     private String email;
 
     @NotNull
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
     @NotNull
