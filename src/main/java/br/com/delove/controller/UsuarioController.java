@@ -30,7 +30,7 @@ import br.com.delove.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
-// @CrossOrigin("*")
+@CrossOrigin("*")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
