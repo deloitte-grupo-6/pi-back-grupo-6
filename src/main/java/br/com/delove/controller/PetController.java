@@ -92,10 +92,10 @@ public class PetController {
     }
 
     @PutMapping("/{petId}/interessado/{usuarioEmail}")
-    public ResponseEntity<PetSummaryModel> adicionarUsuarioNaLista(@PathVariable String usuarioEmail,
+    public ResponseEntity<PetSummaryModel> adicionarUsuarioNaLista(@PathVariable Long usuarioId,
             @PathVariable Long petId) {
         Pet pet = petService.findPetById(petId);
-        Usuario usuario = usuarioService.encontrarUsuarioPorEmail(usuarioEmail);
+        Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         // pet.getFilaInteressados().add(usuario);
         pet.getListaInteressados().add(usuario);
         usuario.getPetsInteressados().add(pet);
