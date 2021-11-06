@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,8 +53,7 @@ public class Pet implements Serializable {
     private LocalDate dataNascimento;
 
     @Lob
-    @Column(columnDefinition = "TEXT")
-    private String imagemUrl;
+    private byte[] imagemUrl;
 
     @Size(max = 500)
     private String descricao;
@@ -65,7 +63,7 @@ public class Pet implements Serializable {
     private List<Usuario> listaInteressados;
 
     public Pet(String nome, Usuario doador, String especie, String raca, String sexo, LocalDate dataNascimento,
-            String descricao, String imagemUrl) {
+            String descricao, byte[] imagemUrl) {
         this.nome = nome;
         this.doador = doador;
         this.especie = especie;
@@ -167,11 +165,11 @@ public class Pet implements Serializable {
     // this.listaInteressados = filaInteressados;
     // }
 
-    public String getImagemUrl() {
+    public byte[] getImagemUrl() {
         return imagemUrl;
     }
 
-    public void setImagemUrl(String imagemUrl) {
+    public void setImagemUrl(byte[] imagemUrl) {
         this.imagemUrl = imagemUrl;
     }
 }
