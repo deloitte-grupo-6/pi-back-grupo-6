@@ -104,8 +104,8 @@ public class PetController {
     }
 
     @GetMapping("/{petId}/usuarios-interessados")
-    public ResponseEntity<List<Usuario>> pegarUsuariosInteressados(@PathVariable Long id) {
-        Pet pet = petService.findPetById(id);
+    public ResponseEntity<List<Usuario>> pegarUsuariosInteressados(@PathVariable Long petId) {
+        Pet pet = petService.findPetById(petId);
         return new ResponseEntity<>(pet.getListaInteressados(), HttpStatus.OK);
     }
 }

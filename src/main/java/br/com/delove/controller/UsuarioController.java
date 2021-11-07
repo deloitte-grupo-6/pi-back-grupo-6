@@ -100,14 +100,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/{usuarioId}/pets-interessados")
-    public ResponseEntity<List<Pet>> pegarPetsInteressados(@PathVariable Long id) {
-        Usuario usuario = usuarioService.findUsuarioById(id);
+    public ResponseEntity<List<Pet>> pegarPetsInteressados(@PathVariable Long usuarioId) {
+        Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         return new ResponseEntity<>(usuario.getPetsInteressados(), HttpStatus.OK);
     }
 
     @GetMapping("/{usuarioId}/pets-em-doacao")
-    public ResponseEntity<List<Pet>> pegarPetsEmDoacao(@PathVariable Long id) {
-        Usuario usuario = usuarioService.findUsuarioById(id);
+    public ResponseEntity<List<Pet>> pegarPetsEmDoacao(@PathVariable Long usuarioId) {
+        Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         return new ResponseEntity<>(usuario.getPetsEmDoacao(), HttpStatus.OK);
     }
 
