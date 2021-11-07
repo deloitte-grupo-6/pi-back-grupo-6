@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,12 +101,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/{usuarioId}/pets-interessados")
+    @Transactional
     public ResponseEntity<List<Pet>> pegarPetsInteressados(@PathVariable Long usuarioId) {
         Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         return new ResponseEntity<>(usuario.getPetsInteressados(), HttpStatus.OK);
     }
 
     @GetMapping("/{usuarioId}/pets-em-doacao")
+    @Transactional
     public ResponseEntity<List<Pet>> pegarPetsEmDoacao(@PathVariable Long usuarioId) {
         Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         return new ResponseEntity<>(usuario.getPetsEmDoacao(), HttpStatus.OK);
