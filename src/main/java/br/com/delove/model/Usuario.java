@@ -16,6 +16,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -55,12 +56,12 @@ public class Usuario implements Serializable {
     @Size(min = 2, max = 50)
     private String cidade;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "doador")
-    @JsonIgnoreProperties("doador")
     private List<Pet> petsEmDoacao;
 
     @ManyToMany
-    @JsonIgnoreProperties("listaInteressados")
+    @JsonIgnore
     @JoinTable(name = "listaInteressados", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "pet_id"))
     private List<Pet> petsInteressados;
 
