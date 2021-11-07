@@ -53,7 +53,7 @@ public class Pet implements Serializable {
     private LocalDate dataNascimento;
 
     @Lob
-    private byte[] imagemUrl;
+    private String imagemUrl;
 
     @Size(max = 500)
     private String descricao;
@@ -63,7 +63,7 @@ public class Pet implements Serializable {
     private List<Usuario> listaInteressados;
 
     public Pet(String nome, Usuario doador, String especie, String raca, String sexo, LocalDate dataNascimento,
-            String descricao, byte[] imagemUrl) {
+            String descricao, String imagemUrl) {
         this.nome = nome;
         this.doador = doador;
         this.especie = especie;
@@ -165,11 +165,11 @@ public class Pet implements Serializable {
     // this.listaInteressados = filaInteressados;
     // }
 
-    public byte[] getImagemUrl() {
+    public String getImagemUrl() {
         return imagemUrl;
     }
 
-    public void setImagemUrl(byte[] imagemUrl) {
+    public void setImagemUrl(String imagemUrl) {
         this.imagemUrl = imagemUrl;
     }
 }
