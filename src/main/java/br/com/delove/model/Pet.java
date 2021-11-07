@@ -55,7 +55,6 @@ public class Pet implements Serializable {
     private LocalDate dataNascimento;
 
     @Lob
-    @Type(type = "org.hibernate.type.ImageType")
     private String imagemUrl;
 
     @Size(max = 500)
