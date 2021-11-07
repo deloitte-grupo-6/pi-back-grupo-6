@@ -11,7 +11,6 @@ import br.com.delove.model.Usuario;
 import br.com.delove.repository.UsuarioRepository;
 
 @Service
-@Transactional
 public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
