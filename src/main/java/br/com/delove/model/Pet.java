@@ -32,7 +32,6 @@ public class Pet implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JsonIgnoreProperties("petsEmDoacao")
     private Usuario doador;
 
     @NotNull
