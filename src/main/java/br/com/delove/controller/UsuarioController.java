@@ -101,14 +101,12 @@ public class UsuarioController {
     }
 
     @GetMapping("/{usuarioId}/pets-interessados")
-    @Transactional
     public ResponseEntity<List<Pet>> pegarPetsInteressados(@PathVariable Long usuarioId) {
         Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         return new ResponseEntity<>(usuario.getPetsInteressados(), HttpStatus.OK);
     }
 
     @GetMapping("/{usuarioId}/pets-em-doacao")
-    @Transactional
     public ResponseEntity<List<Pet>> pegarPetsEmDoacao(@PathVariable Long usuarioId) {
         Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         return new ResponseEntity<>(usuario.getPetsEmDoacao(), HttpStatus.OK);
