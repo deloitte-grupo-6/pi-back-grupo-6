@@ -58,7 +58,7 @@ public class Usuario implements Serializable {
     private String cidade;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "doador", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "doador")
     private List<Pet> petsEmDoacao;
 
     @ManyToMany
