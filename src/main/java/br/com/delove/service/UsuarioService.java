@@ -1,12 +1,14 @@
 package br.com.delove.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.delove.model.Pet;
 import br.com.delove.model.Usuario;
 import br.com.delove.repository.UsuarioRepository;
 
@@ -36,5 +38,15 @@ public class UsuarioService {
 
     public void deletarUsuario(Long id) {
         usuarioRepository.deleteById(id);
+    }
+
+    public Usuario removerPetInteressado(Usuario usuario, Pet pet) {
+        for (Pet p : usuario.getPetsInteressados()) {
+            if (p.equals(pet)) {
+                usuario.getPetsInteressados().remove(p);
+                return usuarioRepository.save(usuario);
+            }
+        }
+        return null;
     }
 }

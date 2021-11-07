@@ -1,6 +1,7 @@
 package br.com.delove.controller;
 
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +30,7 @@ import br.com.delove.model.Pet;
 import br.com.delove.model.Usuario;
 import br.com.delove.security.JwtTokenUtil;
 import br.com.delove.security.JwtUser;
+import br.com.delove.service.PetService;
 import br.com.delove.service.UsuarioService;
 
 @RestController
@@ -37,6 +39,8 @@ import br.com.delove.service.UsuarioService;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private PetService petService;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -101,17 +105,26 @@ public class UsuarioController {
     }
 
     @GetMapping("/{usuarioId}/pets-interessados")
-    public ResponseEntity<List<Pet>> pegarPetsInteressados(@PathVariable Long usuarioId) {
+    public ResponseEntity<Set<Pet>> pegarPetsInteressados(@PathVariable Long usuarioId) {
         Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         return new ResponseEntity<>(usuario.getPetsInteressados(), HttpStatus.OK);
     }
 
     @GetMapping("/{usuarioId}/pets-em-doacao")
-    public ResponseEntity<List<Pet>> pegarPetsEmDoacao(@PathVariable Long usuarioId) {
+    public ResponseEntity<Set<Pet>> pegarPetsEmDoacao(@PathVariable Long usuarioId) {
         Usuario usuario = usuarioService.findUsuarioById(usuarioId);
         return new ResponseEntity<>(usuario.getPetsEmDoacao(), HttpStatus.OK);
     }
 
+    @PutMapping("/{usuarioId}/remover-pet-interessado/{petId}")
+    public ResponseEntity<Set<Pet>> removerPetInteressado(@PathVariable Long usuarioId, @PathVariable Long petId) {
+        Usuario usuario = usuarioService.findUsuarioById(usuarioId);
+        Pet pet = petService.findPetById(petId);
+
+        Usuario novoUsuario = usuarioService.removerPetInteressado(usuario, pet);
+
+        return new ResponseEntity<>(novoUsuario.getPetsInteressados(), HttpStatus.OK);
+    }
 }
 
 class LoginDto {

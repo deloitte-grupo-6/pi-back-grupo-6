@@ -2,7 +2,9 @@ package br.com.delove.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -63,7 +65,7 @@ public class Pet implements Serializable {
     @JsonIgnore
     @ManyToMany(mappedBy = "petsInteressados")
     @JsonIgnoreProperties("petsInteressados")
-    private List<Usuario> listaInteressados;
+    private Set<Usuario> listaInteressados;
 
     public Pet(String nome, Usuario doador, String especie, String raca, String sexo, LocalDate dataNascimento,
             String descricao, String imagemUrl) {
@@ -75,6 +77,7 @@ public class Pet implements Serializable {
         this.dataNascimento = dataNascimento;
         this.descricao = descricao;
         this.imagemUrl = imagemUrl;
+        this.listaInteressados = new HashSet<>();
     }
 
     public Pet() {
@@ -88,11 +91,11 @@ public class Pet implements Serializable {
         this.id = id;
     }
 
-    public List<Usuario> getListaInteressados() {
+    public Set<Usuario> getListaInteressados() {
         return listaInteressados;
     }
 
-    public void setListaInteressados(List<Usuario> listaInteressados) {
+    public void setListaInteressados(Set<Usuario> listaInteressados) {
         this.listaInteressados = listaInteressados;
     }
 

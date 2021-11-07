@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/pets")
@@ -105,7 +106,7 @@ public class PetController {
     }
 
     @GetMapping("/{petId}/usuarios-interessados")
-    public ResponseEntity<List<Usuario>> pegarUsuariosInteressados(@PathVariable Long petId) {
+    public ResponseEntity<Set<Usuario>> pegarUsuariosInteressados(@PathVariable Long petId) {
         Pet pet = petService.findPetById(petId);
         return new ResponseEntity<>(pet.getListaInteressados(), HttpStatus.OK);
     }

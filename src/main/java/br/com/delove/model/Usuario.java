@@ -1,7 +1,9 @@
 package br.com.delove.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,12 +61,12 @@ public class Usuario implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "doador")
-    private List<Pet> petsEmDoacao;
+    private Set<Pet> petsEmDoacao;
 
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "listaInteressados", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "pet_id"))
-    private List<Pet> petsInteressados;
+    private Set<Pet> petsInteressados;
 
     public Usuario() {
     }
@@ -76,6 +78,8 @@ public class Usuario implements Serializable {
         this.contato = contato;
         this.cidade = cidade;
         this.documento = documento;
+        this.petsEmDoacao = new HashSet<>();
+        this.petsInteressados = new HashSet<>();
     }
 
     public Long getId() {
@@ -134,19 +138,19 @@ public class Usuario implements Serializable {
         this.documento = documento;
     }
 
-    public List<Pet> getPetsInteressados() {
+    public Set<Pet> getPetsInteressados() {
         return petsInteressados;
     }
 
-    public void setPetsInteressados(List<Pet> petsInteressados) {
+    public void setPetsInteressados(Set<Pet> petsInteressados) {
         this.petsInteressados = petsInteressados;
     }
 
-    public List<Pet> getPetsEmDoacao() {
+    public Set<Pet> getPetsEmDoacao() {
         return petsEmDoacao;
     }
 
-    public void setPetsEmDoacao(List<Pet> petsEmDoacao) {
+    public void setPetsEmDoacao(Set<Pet> petsEmDoacao) {
         this.petsEmDoacao = petsEmDoacao;
     }
 }
