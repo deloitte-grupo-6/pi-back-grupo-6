@@ -39,6 +39,7 @@ public class PetController {
         return new ResponseEntity<>(petAssembler.toModel(pet), HttpStatus.OK);
     }
 
+
     @GetMapping("/especie/{especie}/{disponivel}")
     public ResponseEntity<List<PetSummaryModel>> listarPetsPorEspecieEDisponibilidade(@PathVariable String especie,
             @PathVariable boolean disponivel) {
