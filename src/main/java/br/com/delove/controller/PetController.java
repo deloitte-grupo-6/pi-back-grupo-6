@@ -39,7 +39,6 @@ public class PetController {
         return new ResponseEntity<>(petAssembler.toModel(pet), HttpStatus.OK);
     }
 
-
     @GetMapping("/especie/{especie}/{disponivel}")
     public ResponseEntity<List<PetSummaryModel>> listarPetsPorEspecieEDisponibilidade(@PathVariable String especie,
             @PathVariable boolean disponivel) {
@@ -102,5 +101,11 @@ public class PetController {
         usuario.getPetsInteressados().add(pet);
         petService.atualizarPet(pet);
         return new ResponseEntity<>(petAssembler.toModel(pet), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{petId}/usuarios-interessados")
+    public ResponseEntity<List<Usuario>> pegarUsuariosInteressados(@PathVariable Long id) {
+        Pet pet = petService.findPetById(id);
+        return new ResponseEntity<>(pet.getListaInteressados(), HttpStatus.OK);
     }
 }

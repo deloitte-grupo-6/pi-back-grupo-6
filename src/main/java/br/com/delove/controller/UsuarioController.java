@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.delove.model.Pet;
 import br.com.delove.model.Usuario;
 import br.com.delove.security.JwtTokenUtil;
 import br.com.delove.security.JwtUser;
@@ -96,6 +97,18 @@ public class UsuarioController {
             Logger.getLogger(UsuarioController.class.getSimpleName()).log(Level.WARNING, mensagemErro);
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @GetMapping("/{usuarioId}/pets-interessados")
+    public ResponseEntity<List<Pet>> pegarPetsInteressados(@PathVariable Long id) {
+        Usuario usuario = usuarioService.findUsuarioById(id);
+        return new ResponseEntity<>(usuario.getPetsInteressados(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{usuarioId}/pets-em-doacao")
+    public ResponseEntity<List<Pet>> pegarPetsEmDoacao(@PathVariable Long id) {
+        Usuario usuario = usuarioService.findUsuarioById(id);
+        return new ResponseEntity<>(usuario.getPetsEmDoacao(), HttpStatus.OK);
     }
 
 }
